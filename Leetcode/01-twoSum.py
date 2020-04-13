@@ -1,11 +1,14 @@
+import math
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+  def twoSum(self, nums: List[int], target: int) -> List[int]:
+    ht = HashTable(len(nums * math.floor(math.sqrt(2)/2)))
+    for n in range(nums):
+      insert(ht,nums[n],n)
+      for i in nums:
+        a = retrieve(ht, i)
+        b = retrieve(ht, target - i)
 
-        
 
-# '''
-# Linked List hash table key/value pair
-# '''
 class LinkedPair:
     def __init__(self, key, value):
         self.key = key
