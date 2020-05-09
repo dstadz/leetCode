@@ -35,17 +35,26 @@ class DeciNode:
   def __init__(self, value):
     self.value = value
     self.children = [None] * 10
-    self.end = False
-    
+    self.tail = False
+
+
+  #sort values by numeral value 
+    #example: 48639 = (head)-->(4)-->(8)-->(6)-->(3)-->(9)--> None
+    #                       \ .h
+    #                         >(3)-->(2)
 
     def addChild(self, value):
-      if len(str(value)) == 1:
-        self.
+      try:
+        cut = value[1:]
+        if self.children[value[0]]:
+          self.addChild(cut)
+      except:
+        self.tail = True
 
 class Decitree:
   def __init__(self,value = None):
 
-  def insert(self, value):
-   
+  def getLongest(self, value, path=[]):
+    x
 
     if self.value == None:
