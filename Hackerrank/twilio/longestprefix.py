@@ -53,10 +53,13 @@ class DeciNode:
 
 class Decitree:
   def __init__(self,value = None):
+    self.head = DeciNode('Head')
 
   def getLongest(self, value, path=[]):
     xx = value[len(path)]
-    
-
-    if self.value == None:
-      stuff happens
+    try:
+      path.append(something)
+      self.children[xx].getLongest(xx,)
+    except:
+      if self.value == None:
+        
