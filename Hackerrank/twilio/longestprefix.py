@@ -37,12 +37,12 @@ class DeciNode:
     self.children = [None] * 10
     self.tail = False
 
-
-  #sort values by numeral value 
+'''
+  #sort values by numeral value
     #example: 48639 = (head)-->(4)-->(8)-->(6)-->(3)-->(9)--> None
-    #                       \ .h
+    #                       \ h
     #                         >(3)-->(2)
-
+'''
     def addChild(self, value):
       try:
         cut = value[1:]
@@ -55,6 +55,8 @@ class Decitree:
   def __init__(self,value = None):
 
   def getLongest(self, value, path=[]):
-    x
+    xx = value[len(path)]
+    
 
     if self.value == None:
+      stuff happens
