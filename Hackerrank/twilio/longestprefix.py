@@ -37,19 +37,22 @@ class DeciNode:
     self.children = [None] * 10
     self.tail = False
 
-'''
   #sort values by numeral value
     #example: 48639 = (head)-->(4)-->(8)-->(6)-->(3)-->(9)--> None
-    #                       \ h
+    #                       \
     #                         >(3)-->(2)
-'''
-    def addChild(self, value):
-      try:
-        cut = value[1:]
-        if self.children[value[0]]:
-          self.addChild(cut)
-      except:
-        self.tail = True
+  def addChild(self, value):
+
+    if len(value) > 1:
+      cut = value[1:]
+
+      if self.children[value[0]] == None:
+        self.children[value[0]] = DeciNode(value[0])
+
+      self.children[value[0]].addChild(cut)
+
+    else:
+      self.tail = True
 
 class Decitree:
   def __init__(self,value = None):
