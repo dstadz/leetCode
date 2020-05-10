@@ -18,7 +18,6 @@ import sys
 
 def match(prefixes, numbers):
   longestPre = []
-  #sort prefixes by length big => small
   for n in numbers:
     longest = ''
     for p in prefixes:
@@ -29,6 +28,20 @@ def match(prefixes, numbers):
           longest = p
     longestPre.append(longest)
   return longestPre
+
+  def fancyMatch(prefixes, numbers):
+    longestPre = ['']*len(numbers)
+
+    #add each prefix into tree
+    d = DeciTree()
+    for p in prefixes:
+      d.head.addChild(p)
+
+    for i,n in enumerate(numbers):
+      longestPre[i] = d.getLongest(n)
+
+    return longestPre
+
 
 
 class DeciNode:
@@ -54,7 +67,7 @@ class DeciNode:
     else:
       self.tail = True
 
-class Decitree:
+class DeciTree:
   def __init__(self,value = None):
     self.head = DeciNode('Head')
 
