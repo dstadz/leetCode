@@ -1,55 +1,50 @@
-#!/bin/python3
 
 import math
-import os
-import random
-import re
-import sys
+# import os
+# import random
+# import re
+# import sys
 
 
 #  ( STRING ) => return{ STRING_ARRAY } .
 #
 
 def segments(message):
-    num = math.ceil(len(message)/160)
-    
-    if num == 1:
-        segmentList = [message]
+  num = math.ceil(len(message)/160)
 
-    else:
-        segmentList = []
-        # print(num, len(message), message)
-        for i in range(num):
-            start = i * 155
+  if num == 1:
+    segmentList = [message]
 
-            #takes step back to not cut word
-            while i[start] != ' ':
-                start -= 1
+  else:
+    segmentList = []
+    # print(num, len(message), message)
+    for i in range(num):
 
-            end = min(start + 155, len(message))
+      if i == 0:
+        start = 0
 
-            # why no f-strings?
-            # segmentList.append(message[start:end] += f'({i}/{num})')
+      else:
+        start = end + 1
 
-            frag = message[start: end]
-            frag += '('
-            frag += str(i+1)
-            frag +='/'
-            frag += str(num)
-            frag += ')'
+        while message[start] != ' ':
+          start -= 1
 
-            segmentList.append(frag)
+      end = min(start + 154, len(message))
+      print(i, start, end)
 
-    return segmentList
+      # why no f-strings?
+      # segmentList.append(message[start:end] += f'({i}/{num})')
+      frag = message[start: end]
+      frag += '('
+      frag += str(i+1)
+      frag +='/'
+      frag += str(num)
+      frag += ')'
 
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+      segmentList.append(frag)
 
-    message = input()
+  return segmentList
 
-    result = segments(message)
+chat = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
-    fptr.write('\n'.join(result))
-    fptr.write('\n')
-
-    fptr.close()
+print(segments(chat))

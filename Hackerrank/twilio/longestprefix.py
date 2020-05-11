@@ -1,4 +1,3 @@
-#!/bin/python3
 
 import math
 import os
@@ -18,7 +17,7 @@ import sys
 
 def match(prefixes, numbers):
   longestPre = []
-  
+
   for n in numbers:
     longest = ''
 
@@ -35,18 +34,18 @@ def match(prefixes, numbers):
 
   return longestPre
 
-  def fancyMatch(prefixes, numbers):
-    longestPre = ['']*len(numbers)
+def fancyMatch(prefixes, numbers):
+  longestPre = ['']*len(numbers)
 
-    #add each prefix into tree
-    d = DeciTree()
-    for p in prefixes:
-      d.head.addChild(p)
+  #add each prefix into tree
+  d = DeciTree()
+  for p in prefixes:
+    d.head.addChild(p)
 
-    for i,n in enumerate(numbers):
-      longestPre[i] = d.getLongest(n)
+  for i,n in enumerate(numbers):
+    longestPre[i] = d.getLongestPrefix(n)
 
-    return longestPre
+  return longestPre
 
 
 
@@ -58,39 +57,36 @@ class DeciNode:
 
   #sort values by numeral value
     #example: 48639 = (head)-->(4)-->(8)-->(6)-->(3)-->(9)--> None
-    #                       \
-    #                         >(3)-->(2)
+    #                             \
+    #         432                  ->(3)-->(2)-->None
   def addChild(self, value):
-
     if len(value):
-
       cut = value[1:]
+      val = int(value[0])
 
-      # create new DeciNode if 
-      if self.children[value[0]] == None:
-        self.children[value[0]] = DeciNode(value[0])
+      if self.children[val] == None:
+        self.children[val] = DeciNode(val)
 
-      self.children[value[0]].addChild(cut)
+      self.children[val].addChild(cut)
 
     else:
       self.tail = True
-  def getLongestPrefix(self, i=0, number='', path='', lg2=''):
 
+class DeciTree:
+  def __init__(self,value = None):
+    self.head = DeciNode('Head')
+
+  def getLongestPrefix(self, number='', i=0, path='', lg2=''):
     if i < len(number):
       nth = number[i]
 
       if self.tail:
         lg2 = path
-      
+
       if  self.children[nth]:
         self.children[nth].getLongestPrefix(i+1,path+self.value,lg2)
 
     return(lg2)
-class DeciTree:
-  def __init__(self,value = None):
-    self.head = DeciNode('Head')
-
-
     # number is going through tree by matching number[x] and xth branch is true
         ###try adding a try except block, and compare function times
           # try:
@@ -98,4 +94,9 @@ class DeciTree:
           #   self.children[xx].getLongest(xx,)
           # except:
           #   if self.value == None:
-              
+
+pre = ['42','35','423']
+phonums = ['426568','456789','4239999']
+
+# print(match(pre, phonums))
+print(fancyMatch(pre, phonums))
