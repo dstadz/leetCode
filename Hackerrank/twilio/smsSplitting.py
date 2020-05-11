@@ -7,41 +7,40 @@ import re
 import sys
 
 
-#
-# Complete the 'segments' function below.
-#
-# The function is expected to return a STRING_ARRAY.
-# The function accepts STRING message as parameter.
+#  ( STRING ) => return{ STRING_ARRAY } .
 #
 
 def segments(message):
     num = math.ceil(len(message)/160)
+    
     if num == 1:
-        text = [message]
-    # text = [''] * num
-    # for i in range(num):
-    #     for m in message:
-    # print(text)
+        segmentList = [message]
+
     else:
-        text = []
+        segmentList = []
         # print(num, len(message), message)
         for i in range(num):
             start = i * 155
-            end = min(start + 155, len(message))
-            print(i, start,end,message[start: end])
 
-            # why
+            #takes step back to not cut word
+            while i[start] != ' ':
+                start -= 1
+
+            end = min(start + 155, len(message))
+
+            # why no f-strings?
+            # segmentList.append(message[start:end] += f'({i}/{num})')
+
             frag = message[start: end]
             frag += '('
             frag += str(i+1)
             frag +='/'
             frag += str(num)
             frag += ')'
-            print(frag)
-            text.append(frag)
-            # text[i] += f'({i}/{num})'
-            print(text[i])
-    return text
+
+            segmentList.append(frag)
+
+    return segmentList
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')

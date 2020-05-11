@@ -18,15 +18,21 @@ import sys
 
 def match(prefixes, numbers):
   longestPre = []
+  
   for n in numbers:
     longest = ''
+
     for p in prefixes:
+
       if len(p) < len(longest):
         continue
+
       if p == n[0:len(p)]:
         if len(p) > len(longest):
           longest = p
+
     longestPre.append(longest)
+
   return longestPre
 
   def fancyMatch(prefixes, numbers):
@@ -69,13 +75,17 @@ class DeciNode:
     else:
       self.tail = True
   def getLongestPrefix(self, i=0, number='', path='', lg2=''):
-    while i < len(number):
+
+    if i < len(number):
       nth = number[i]
+
       if self.tail:
         lg2 = path
+      
       if  self.children[nth]:
         self.children[nth].getLongestPrefix(i+1,path+self.value,lg2)
 
+    return(lg2)
 class DeciTree:
   def __init__(self,value = None):
     self.head = DeciNode('Head')
