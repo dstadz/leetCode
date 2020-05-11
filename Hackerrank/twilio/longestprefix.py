@@ -56,9 +56,11 @@ class DeciNode:
     #                         >(3)-->(2)
   def addChild(self, value):
 
-    if len(value) > 1:
+    if len(value):
+
       cut = value[1:]
 
+      # create new DeciNode if 
       if self.children[value[0]] == None:
         self.children[value[0]] = DeciNode(value[0])
 
@@ -66,16 +68,24 @@ class DeciNode:
 
     else:
       self.tail = True
+  def getLongestPrefix(self, i=0, number='', path='', lg2=''):
+    while i < len(number):
+      nth = number[i]
+      if self.tail:
+        lg2 = path
+      if  self.children[nth]:
+        self.children[nth].getLongestPrefix(i+1,path+self.value,lg2)
 
 class DeciTree:
   def __init__(self,value = None):
     self.head = DeciNode('Head')
 
-  def getLongest(self, value, path=[]):
-    xx = value[len(path)]
-    try:
-      path.append(something)
-      self.children[xx].getLongest(xx,)
-    except:
-      if self.value == None:
-        
+
+    # number is going through tree by matching number[x] and xth branch is true
+        ###try adding a try except block, and compare function times
+          # try:
+          #   path.append(something)
+          #   self.children[xx].getLongest(xx,)
+          # except:
+          #   if self.value == None:
+              
