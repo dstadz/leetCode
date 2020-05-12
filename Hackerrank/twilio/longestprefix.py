@@ -40,12 +40,10 @@ def fancyMatch(prefixes, numbers):
   #add each prefix into tree
   d = DeciNode()
   for p in prefixes:
-    print(p)
     d.addChild(p[1:])
 
   for i,n in enumerate(numbers):
     longestPre[i] = d.getLongestPrefix(n)
-    print('\n')
 
   return longestPre
 
@@ -62,42 +60,43 @@ class DeciNode:
     self.tail = False
 
   def addChild(self, value):
-
     if value[0] == '+':
       value = value[1:]
 
     idx = value[0]
-    if len(value) > 2:
-      try:
-        self.children[idx].addChild(value[1:])
-      except:
-        self.children[idx] = DeciNode(idx)
-        self.children[idx].addChild(value[1:])
+    cut = None
+    if len(value) >= 2:
+      cut = value[1:]
 
-    elif len(value) == 1:
-      if not self.children[idx]:
+      if idx in self.children:
+        self.children[idx].addChild(cut)
+
+      else:
         self.children[idx] = DeciNode(idx)
+        self.children[idx].addChild(cut)
+
+    else:
+      if idx in self.children:
+        self.children[idx].tail = True
+
+      else:
+        self.children[idx] = DeciNode(idx)
+        self.children[idx].tail = True
 
       self.children[idx].tail = True
+    print(idx, cut, self.children)
 
-    # if len(value):
-    #   cut = value[1:]
-    #   val = int(value[0])
 
-    #   if self.children[val] == None:
-    #     self.children[val] = DeciNode(val)
 
-    #   self.children[val].addChild(cut)
-
-    # else:
-    #   self.tail = True
-
-  def getLongestPrefix(self, number='', i=0, path='', lg2=''):
-    print(number,i,path,lg2)
+  def getLongestPrefix(self, number, i=0, path='', lg2=''):
+    # print(number,i,path,lg2)
+    # print(f'value: {self.value}, kids:{self.children}')
+    if number[0] == '+':
+      number = number[1:]
 
     if i < len(number):
       nth = number[i]
-      print(nth)
+      # print(nth)
       if self.tail:
         lg2 = path
 
@@ -106,16 +105,7 @@ class DeciNode:
 
     return(lg2)
 
-
-    # number is going through tree by matching number[x] and xth branch if true
-        ###try adding a try except block, and compare function times
-          # try:
-          #   path.append(something)
-          #   self.children[xx].getLongest(xx,)
-          # except:
-          #   if self.value == None:
-
-pre = ['+426','+35','+423']
+pre = ['+4265']#,'+351','+423','+5786','2584']
 phonums = ['+426568','+456789','+4239999']
 
 # print(match(pre, phonums))
