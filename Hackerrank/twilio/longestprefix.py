@@ -64,27 +64,19 @@ class DeciNode:
       value = value[1:]
 
     idx = value[0]
-    cut = None
+
+    if idx not in self.children:
+      # print(f'{self.value}: {idx} joining {self.children.keys()}')
+      self.children[idx] = DeciNode(idx)
+
     if len(value) >= 2:
-      cut = value[1:]
-
-      if idx in self.children:
-        self.children[idx].addChild(cut)
-
-      else:
-        self.children[idx] = DeciNode(idx)
-        self.children[idx].addChild(cut)
-
+      # print(f'{self.value}:{idx} {value[1:]}=> {self.children.keys()} ')
+      self.children[idx].addChild(value[1:])
     else:
-      if idx in self.children:
-        self.children[idx].tail = True
-
-      else:
-        self.children[idx] = DeciNode(idx)
-        self.children[idx].tail = True
-
       self.children[idx].tail = True
-    print(idx, cut, self.children)
+
+    
+    # print(idx, value[1:], self.children)
 
 
 
@@ -101,11 +93,12 @@ class DeciNode:
         lg2 = path
 
       if self.children[nth]:
+        print(number,i+1,path+str(self.value),lg2)
         self.children[nth].getLongestPrefix(number,i+1,path+str(self.value),lg2)
 
     return(lg2)
 
-pre = ['+4265']#,'+351','+423','+5786','2584']
+pre = ['+4265','+351','+423','+5786','2584']
 phonums = ['+426568','+456789','+4239999']
 
 # print(match(pre, phonums))
