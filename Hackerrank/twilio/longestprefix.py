@@ -66,57 +66,70 @@ class DeciNode:
 
     idx = value[0]
 
-    if idx not in self.children: # print(f'{self.value}: {idx} joining {self.children.keys()}')
+    if idx not in self.children:
       self.children[idx] = DeciNode(idx)
 
-    if len(value) >= 2: # print(f'{self.value}:{idx} {value[1:]}=> {self.children.keys()} ')
+    if len(value) >= 2:
       self.children[idx].addChild(value[1:])
     else:
+      # print(f'tail at {self.children[idx].value}')
       self.children[idx].tail = True
 
 
     # print(idx, value[1:], self.children)
 
-
-
   def getLongestPrefix(self, number):
+
+    number = number[1:]
     path = self.value
     i = 0
     lg2=''
-    while i < len(number)-1:
+
+    while i < len(number):
+      # print(f'({i},{number[i]}) {path} {lg2}')
+      # print('self:', self.value, self.children.keys(), self.tail, '\n')
 
       if self.tail:
-        print(path, number)
+        # print('tail', path, number)
         lg2 = path
 
-
       if number[i] in self.children:
+        # print('step', path)
         self = self.children[number[i]]
         path += self.value
+      else:
+        return lg2
 
       i += 1
-      
+
     return lg2
 
 
-l = 10
 
-pre = ['+4265','+351','+42','+5786','+2584', '+45']
-# phonums = ['+426568','+456789','+4239999']
-phonums = [''] * l
+l = 1
+for exp in range(5):
+  l = 10 ** exp
+  pre = [''] * l
+  phonums = [''] * l
 
+  for i,n in enumerate(range(l)):
+    pre[i] = '+' + str(math.floor(random.random()*10**random.randrange(1,9)))
+    phonums[i] = '+' + str(math.floor(random.random()*10**9))
 
-for i,n in enumerate(range(l)):
-  x = math.floor(random.random()*10**9)
-  phonums[i] = '+' + str(x)
-print(pre)
-print(phonums, '\n')
-'''
-start = time.time()
-print("hello")
-end = time.time()
-print(end - start)
-'''
+  start = time.time()
+  reg = match(pre, phonums)
+  end = time.time()
+  print(end - start)
 
-print(match(pre, phonums))
-print(fancyMatch(pre, phonums))
+  start = time.time()
+  fancy = fancyMatch(pre, phonums)
+  end = time.time()
+  print(end - start)
+
+  fail = False
+  for i in range(l):
+    if reg[i] != fancy[i]:
+      print(f'err at {i}')
+      print(reg[i], fancy[i])
+      fail = True
+  print(fail)
