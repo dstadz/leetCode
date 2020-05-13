@@ -124,12 +124,15 @@ for exp in range(5):
   start = time.time()
   fancy = fancyMatch(pre, phonums)
   end = time.time()
-  print(end - start)
+  print(l, end - start)
 
-  fail = False
+  err_ct = 0
+  valid_pre = 0
   for i in range(l):
     if reg[i] != fancy[i]:
       print(f'err at {i}')
       print(reg[i], fancy[i])
-      fail = True
-  print(fail)
+      err_ct += 1
+    elif fancy[i] != '':
+      valid_pre += 1
+  print(valid_pre, err_ct)
