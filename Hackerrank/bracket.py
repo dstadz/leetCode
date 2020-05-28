@@ -16,7 +16,7 @@ def balancedBrackets(string):
     if s=='}' and stack[-1]=='{':
       stack.pop()
 
-  return len(stack) == 0:
+  return len(stack) == 0
  
   return stack
 
