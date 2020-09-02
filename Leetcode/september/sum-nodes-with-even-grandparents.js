@@ -1,5 +1,3 @@
-// Runtime: 140 ms, faster than 21.05% of JavaScript online submissions for Sum of Nodes with Even-Valued Grandparent.
-// Memory Usage: 47.7 MB, less than 14.47% of JavaScript online submissions for Sum of Nodes with Even-Valued Grandparent.
 
 
 var sumEvenGrandparent = function(root) {
@@ -28,3 +26,5 @@ var sumEvenGrandparent = function(root) {
   traverse(root)
   return sum
 };
+// Memory Usage: 47.7 MB, less than 14.47% of JavaScript online submissions for Sum of Nodes with Even-Valued Grandparent.
+// Runtime: 140 ms, faster than 21.05% of JavaScript online submissions for Sum of Nodes with Even-Valued Grandparent.
