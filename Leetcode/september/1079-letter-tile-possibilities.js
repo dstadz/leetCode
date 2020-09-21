@@ -6,7 +6,10 @@ var numTilePossibilities = function(tiles) {
     if (i in letterCount) letterCount[i] += 1
     else letterCount[i] = 1
   }
+  console.log(letterCount)
+
+  return total
 };
 
-const tiles = 'aaabbc'
+const tiles = 'AAABBC'
 console.log(numTilePossibilities(tiles))
