@@ -1,7 +1,6 @@
 
-def findSum(arr, t):
-  arr.sort()
-  def binSearch(el):
+
+def binSearch(arr,el):
     l,r = 0, len(arr) - 1
     while l + 1 < r:
       mid = (l + r) // 2
@@ -12,10 +11,24 @@ def findSum(arr, t):
     if arr[r] == el: return el
     else: return -1
 
+
+def find2Sum(arr, t):
+  arr.sort()
   for i in arr:
-    swap = binSearch(t - i)
+    swap = binSearch(arr, t - i)
     if swap > 0:
-      print(i, t - i)
+      print(i, t - i,'=>',i * (t - i))
       return i * (t - i)
 
-print(findSum(numbers, target))
+def find3Sum(arr,t):
+  arr.sort()
+  for i in arr:
+    for j in arr[i:]:
+      swap = binSearch(arr, t-i-j)
+      if swap > 0:
+        print(i,j, t-i-j,'=>',i * j * (t-i-j))
+        return i * j * (t-i-j)
+
+
+print(find2Sum(numbers, target))
+print(find3Sum(numbers, target))
