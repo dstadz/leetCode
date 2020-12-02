@@ -1019,4 +1019,19 @@ const ex =   '15-19 k: kkkkkkkkkkkkzkkkkkkk'
   return arr.filter(pss => isValid(pss)).length
 }
 
-console.log(validate(passwords))
+const valid2 = arr => {
+  const isValid = pwd => {
+    const first = parseInt(pwd.slice(0, pwd.indexOf('-')))
+    const second = parseInt(pwd.slice(pwd.indexOf('-') + 1, pwd.indexOf(' ')))
+    const char = pwd.slice(pwd.indexOf(' ') + 1, pwd.indexOf(':'))
+    const word = pwd.slice(pwd.indexOf(':') + 1)
+
+    const check1 = word[first] === char
+    const check2 = word[second] === char
+
+    return check1 !== check2
+  }
+return arr.filter(pss => isValid(pss)).length
+}
+
+console.log(valid2(passwords))
