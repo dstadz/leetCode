@@ -323,19 +323,29 @@ const hillSide = [
   ['.','.','#','.','.','.','.','.','.','.','.','.','.','.','#','#','.','.','.','.','#','.','.','.','#','.','.','.','#','#','.',],
   ['.','.','.','.','.','#','.','.','.','.','.','.','#','.','.','.','.','.','.','.','.','.','#','.','.','#','#','.','#','.','.',]
 ]
-const ski = matrix => {
+const ski = (matrix, slope) => {
   let [y,x] = [0,0]
+  let [dy, dx] = slope
   let trees = 0
   while (y < matrix.length) {
-    console.log([y,x], matrix[y][x])
+    // console.log([y,x], matrix[y][x])
     if (matrix[y][x] === '#') trees++
-    y += 1
-    x + 3 < matrix[0].length
-      ? x = x + 3
-      : x = x + 3 - matrix[0].length
+    y += dy
+    x + dx < matrix[0].length
+      ? x = x + dx
+      : x = x + dx - matrix[0].length
   }
-
+  console.log(trees)
   return trees
 }
 
-console.log(ski(hillSide))
+const slopes = [
+  [1,1],
+  [1,3],
+  [1,5],
+  [1,7],
+  [2,1]
+]
+
+// console.log(ski(hillSide,[1,3]))
+console.log(slopes.reduce((t,c) => t * ski(hillSide, c),1))
